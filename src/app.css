@@ -1,0 +1,15 @@
+.example {
+  font-size: .8rem;
+  color: #8b8ba7;
+  font-weight: normal;
+}
+
+.example::before {
+  content: "例: ";
+}
+
+.required {
+  color: #ff8d27;
+  font-weight: 400;
+  margin-left: 4px;
+}

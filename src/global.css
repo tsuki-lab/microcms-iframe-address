@@ -1,0 +1,39 @@
+:root {
+  --color: #563bff;
+  --color-link: #563bff;
+  --color-table: #563bff;
+  --color-text: #21213b;
+  --color-loader: #563bff;
+  --color-error: #ff1f4d;
+}
+
+/* microCMS input style */
+input {
+  padding: 16px;
+  border: 1px solid #cdcde0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+  min-width: 240px;
+  height: 40px;
+  font-size: 16px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
+}
+
+select {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+  min-width: 240px;
+  height: 40px;
+  font-size: 16px;
+  transition: box-shadow .2s ease;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
+}
+
+input:focus,
+select:focus {
+  outline: 1px solid #563bff;
+}
