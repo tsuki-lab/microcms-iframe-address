@@ -1,4 +1,4 @@
-name: Deploy Vite app
+name: deploy-vite-app
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Vite app
+      - name: Build Vite App
         run: pnpm build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: ./dist
