@@ -1,7 +1,13 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
-import {MicroCMSIframeState, MicroCMSPostParams, MicroCMSUpdateStyleParams} from './types'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  MicroCMSIframeState,
+  MicroCMSPostParams,
+  MicroCMSUpdateStyleParams,
+} from './types'
 
-export const useMicroCMSIframe = <T>(styleParams?: Partial<MicroCMSUpdateStyleParams>) => {
+export const useMicroCMSIframe = <T>(
+  styleParams?: Partial<MicroCMSUpdateStyleParams>
+) => {
   const mounted = useRef(false)
   const [state, setState] = useState<MicroCMSIframeState<T>>({
     iframeId: '',
@@ -13,7 +19,7 @@ export const useMicroCMSIframe = <T>(styleParams?: Partial<MicroCMSUpdateStylePa
       imageUrl: '',
       updatedAt: '',
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: {} as any
+      data: {} as any,
     },
   })
 
@@ -37,29 +43,32 @@ export const useMicroCMSIframe = <T>(styleParams?: Partial<MicroCMSUpdateStylePa
               action: 'MICROCMS_UPDATE_STYLE',
               message: styleParams,
             },
-            e.origin,
+            e.origin
           )
         }
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const microCMSPostData = useCallback((payload: Partial<MicroCMSPostParams<T>>) => {
-    if (state.iframeId && state.serviceUrl) {
-      window.parent.postMessage(
-        {
-          id: state.iframeId,
-          action: 'MICROCMS_POST_DATA',
-          message: payload
-        },
-        state.serviceUrl
-      )
-    }
-  }, [state])
+  const microCMSPostData = useCallback(
+    (payload: Partial<MicroCMSPostParams<T>>) => {
+      if (state.iframeId && state.serviceUrl) {
+        window.parent.postMessage(
+          {
+            id: state.iframeId,
+            action: 'MICROCMS_POST_DATA',
+            message: payload,
+          },
+          state.serviceUrl
+        )
+      }
+    },
+    [state]
+  )
 
   return {
     defaultMessage: state.defaultMessage,
-    microCMSPostData
+    microCMSPostData,
   }
 }

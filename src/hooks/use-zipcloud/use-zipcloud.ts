@@ -1,8 +1,8 @@
-import {useCallback, useReducer, useState} from 'react'
+import { useCallback, useReducer, useState } from 'react'
 import { ZipError, ZipState, ZipStateReducer, ZipSuccess } from './types'
 
 const convertErrorMessage = (message: string) => {
-  switch(message) {
+  switch (message) {
     case 'パラメータ「郵便番号」の桁数が不正です。':
       return '郵便番号の桁数が誤っています。'
     default:
@@ -12,13 +12,16 @@ const convertErrorMessage = (message: string) => {
 
 export const useZipcloud = () => {
   const [loading, setLoadingState] = useState(false)
-  const [state, reducer] = useReducer<ZipStateReducer>((_, payload) => {
-    return payload
-  }, {
-    data: undefined,
-    error: undefined,
-    status: undefined,
-  })
+  const [state, reducer] = useReducer<ZipStateReducer>(
+    (_, payload) => {
+      return payload
+    },
+    {
+      data: undefined,
+      error: undefined,
+      status: undefined,
+    }
+  )
 
   const handler = useCallback(async (zipcode: string) => {
     // 郵便番号が入力されていない
@@ -33,7 +36,9 @@ export const useZipcloud = () => {
     }
 
     setLoadingState(true)
-    const res = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`)
+    const res = await fetch(
+      `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`
+    )
     const body: ZipSuccess | ZipError = await res.json()
 
     // 異常系
