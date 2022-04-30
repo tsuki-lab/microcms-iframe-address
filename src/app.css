@@ -1,15 +1,18 @@
 .example {
-  font-size: .8rem;
-  color: #8b8ba7;
+  display: inline-block;
+  color: #68688a;
+  font-size: 1.2rem;
   font-weight: normal;
+  line-height: 1.4;
+  padding-bottom: 8px;
+  word-break: break-all;
 }
 
 .example::before {
   content: "例: ";
 }
 
-.required {
-  color: #ff8d27;
-  font-weight: 400;
-  margin-left: 4px;
+.error {
+  color: var(--color-error);
+  font-size: 1.2rem;
 }
