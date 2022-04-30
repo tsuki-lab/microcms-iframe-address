@@ -4,8 +4,10 @@ module.exports = {
     'es2021': true,
   },
   'extends': [
-    'plugin:@typescript-eslint/recommended',
+    "eslint:recommended",
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
     'google',
     'prettier',
   ],
@@ -21,9 +23,11 @@ module.exports = {
     'react',
     'react-hooks',
     '@typescript-eslint',
-    'import'
+    'import',
+    'prettier'
   ],
   'rules': {
+    'prettier/prettier': ['error'],
     'semi': ['error', 'never'],
     'require-jsdoc': ['off'],
     'spaced-comment': ['off'],

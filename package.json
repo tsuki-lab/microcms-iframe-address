@@ -4,9 +4,11 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "pnpm type-check && vite build",
     "preview": "vite preview",
-    "fix": "eslint . --ext .ts,.tsx --fix"
+    "lint": "eslint . --ext .ts,.tsx",
+    "fix": "pnpm lint -- --fix",
+    "type-check": "tsc"
   },
   "dependencies": {
     "mvp.css": "^1.8.0",
@@ -23,6 +25,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.6.2",
