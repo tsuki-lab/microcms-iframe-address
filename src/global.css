@@ -28,12 +28,6 @@ form {
   box-shadow: none;
 }
 
-button[type='reset'] {
-  color: var(--color);
-  border: 1px solid var(--color);
-  background-color: #fff;
-}
-
 /* microCMS input style */
 input {
   padding: 16px;
