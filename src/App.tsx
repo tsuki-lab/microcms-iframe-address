@@ -1,54 +1,52 @@
-import { Reducer, useEffect, useMemo, useReducer } from 'react'
+import { Reducer, useEffect, useReducer } from 'react'
 import { Loading } from './components/Loading'
 import { useMicroCMSIframe } from './hooks/use-microcms-iframe'
 import { useZipcloud } from './hooks/use-zipcloud/use-zipcloud'
 
 import './app.css'
 
-type FormState = {
-  zip: string,
-  address: string,
-  building: string
+const initFormState = {
+  zip: '',
+  address: '',
+  building: ''
 }
+
+type FormState = typeof initFormState
 
 type FormReducer = Reducer<FormState, Partial<FormState>>
 
 function App() {
-  const { state, postHandler } = useMicroCMSIframe<FormState>({
-    height: 410
-  })
+  const [formState, formDispatch] = useReducer<FormReducer>((prev, action) => ({ ...prev, ...action }), initFormState)
+
+  const { defaultMessage, microCMSPostData } = useMicroCMSIframe<FormState>({ height: 410 })
+
   const { error: zipError, handler, loading } = useZipcloud()
 
-  const isLoading = useMemo(() => loading, [loading])
+  // microCMSに登録されている情報をStateに詰める
+  useEffect(() => {
+    if (!defaultMessage?.data) return
+    formDispatch(defaultMessage.data)
+  }, [defaultMessage])
 
-  const [formState, formDispatch] = useReducer<FormReducer>((prev, action) => {
-    return { ...prev, ...action }
-  }, {
-    zip: '',
-    address: '',
-    building: ''
-  })
-
-  const searchZip = async () => {
-    const { data: zips } = await handler(formState.zip)
-    if (zips) {
-      formDispatch({address: `${zips[0].address1}${zips[0].address2}${zips[0].address3}`})
-    }
+  /** 郵便番号から住所を検索する */
+  const searchAddressByZip = async () => {
+    const zpicode = formState.zip.replace(/^([0-9]{3})\-?([0-9]{4})$/, '$1$2')
+    const { data: zips } = await handler(zpicode)
+    if (!zips) return
+    formDispatch({
+      zip: zpicode,
+      address: `${zips[0].address1}${zips[0].address2}${zips[0].address3}`
+    })
   }
 
+  // 郵便番号・住所・建物名のいずれかが更新されたらmicroCMSに送る
   useEffect(() => {
-    if (state.defaultMessage?.data) {
-      formDispatch(state.defaultMessage.data)
-    }
-  }, [state.defaultMessage])
-
-  useEffect(() => {
-    const values = [formState.zip.replace(/([0-9]{3})([0-9]{4})/, ''), formState.address, formState.building]
-    postHandler({
+    const values = [formState.zip.replace(/^([0-9]{3})\-?([0-9]{4})$/, '〒$1-$2'), formState.address, formState.building]
+    microCMSPostData({
       description: values.join(' '),
       data: formState
     })
-  }, [formState])
+  }, [formState, microCMSPostData])
 
   return (
     <>
@@ -64,10 +62,10 @@ function App() {
           required
           autoComplete='off'
           value={formState.zip}
-          onChange={(e) => formDispatch({zip: e.target.value})}
+          onChange={(e) => formDispatch({ zip: e.target.value })}
         />
         <p className="error">{zipError}</p>
-        <button type='button' onClick={searchZip}>郵便番号で住所を検索</button>
+        <button type='button' onClick={searchAddressByZip}>郵便番号で住所を検索</button>
 
         <label htmlFor="address">
           住所<br />
@@ -80,7 +78,7 @@ function App() {
           required
           autoComplete='off'
           value={formState.address}
-          onChange={(e) => formDispatch({address: e.target.value})}
+          onChange={(e) => formDispatch({ address: e.target.value })}
         />
 
         <label htmlFor="building">
@@ -93,10 +91,10 @@ function App() {
           className="w-full"
           autoComplete='off'
           value={formState.building}
-          onChange={(e) => formDispatch({building: e.target.value})}
+          onChange={(e) => formDispatch({ building: e.target.value })}
         />
       </form>
-      {isLoading && <Loading />}
+      {loading && <Loading />}
     </>
   )
 }

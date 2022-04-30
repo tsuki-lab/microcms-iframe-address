@@ -42,9 +42,10 @@ export const useMicroCMSIframe = <T>(styleParams?: Partial<MicroCMSUpdateStylePa
         }
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const postHandler = useCallback((payload: Partial<MicroCMSPostParams<T>>) => {
+  const microCMSPostData = useCallback((payload: Partial<MicroCMSPostParams<T>>) => {
     if (state.iframeId && state.serviceUrl) {
       window.parent.postMessage(
         {
@@ -58,7 +59,7 @@ export const useMicroCMSIframe = <T>(styleParams?: Partial<MicroCMSUpdateStylePa
   }, [state])
 
   return {
-    state,
-    postHandler
+    defaultMessage: state.defaultMessage,
+    microCMSPostData
   }
 }
