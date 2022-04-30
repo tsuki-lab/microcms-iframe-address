@@ -19,7 +19,7 @@ form {
   box-shadow: none;
 }
 
-button[type="reset"] {
+button[type='reset'] {
   color: var(--color);
   border: 1px solid var(--color);
   background-color: #fff;
@@ -47,7 +47,7 @@ select {
   min-width: 240px;
   height: 40px;
   font-size: 16px;
-  transition: box-shadow .2s ease;
+  transition: box-shadow 0.2s ease;
   box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
 }
 

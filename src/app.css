@@ -9,7 +9,7 @@
 }
 
 .example::before {
-  content: "例: ";
+  content: '例: ';
 }
 
 .error {

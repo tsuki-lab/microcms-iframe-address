@@ -7,8 +7,8 @@ import './app.css'
 
 const initFormState = {
   zip: '',
-  address: '',
-  building: '',
+  address1: '',
+  address2: '',
 }
 
 type FormState = typeof initFormState
@@ -40,7 +40,7 @@ function App() {
     if (!zips) return
     formDispatch({
       zip: zpicode,
-      address: `${zips[0].address1}${zips[0].address2}${zips[0].address3}`,
+      address1: `${zips[0].address1}${zips[0].address2}${zips[0].address3}`,
     })
   }
 
@@ -48,8 +48,8 @@ function App() {
   useEffect(() => {
     const values = [
       formState.zip.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
-      formState.address,
-      formState.building,
+      formState.address1,
+      formState.address2,
     ]
     microCMSPostData({
       description: values.join(' '),
@@ -80,7 +80,7 @@ function App() {
         </button>
 
         <label htmlFor="address">
-          住所
+          住所1
           <br />
           <span className="example">東京都中野区中野5-65-5</span>
         </label>
@@ -90,12 +90,12 @@ function App() {
           className="w-full"
           required
           autoComplete="off"
-          value={formState.address}
-          onChange={(e) => formDispatch({ address: e.target.value })}
+          value={formState.address1}
+          onChange={(e) => formDispatch({ address1: e.target.value })}
         />
 
         <label htmlFor="building">
-          建物名
+          住所2
           <br />
           <span className="example">豊島興業ビル7F</span>
         </label>
@@ -104,8 +104,8 @@ function App() {
           type="text"
           className="w-full"
           autoComplete="off"
-          value={formState.building}
-          onChange={(e) => formDispatch({ building: e.target.value })}
+          value={formState.address2}
+          onChange={(e) => formDispatch({ address2: e.target.value })}
         />
       </form>
       {loading && <Loading />}
