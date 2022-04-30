@@ -17,9 +17,10 @@ DEMO: [https://tsuki-lab.github.io/microcms-iframe-address/](https://tsuki-lab.g
 ## レスポンス
 ```json
   {
-    "zip": "郵便番号",
-    "address1": "住所1",
-    "address2": "住所2"
+    "postalCode": "郵便番号",
+    "addressLevel1": "都道府県",
+    "addressLevel2": "市区町村",
+    "streetAddress": "町名以下"
   }
 ```
 

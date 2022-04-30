@@ -6,9 +6,10 @@ import { useZipcloud } from './hooks/use-zipcloud/use-zipcloud'
 import './app.css'
 
 const initFormState = {
-  zip: '',
-  address1: '',
-  address2: '',
+  postalCode: '', // 郵便番号
+  addressLevel1: '', // 都道府県
+  addressLevel2: '', // 市区町村
+  streetAddress: '' // 町名以下
 }
 
 type FormState = typeof initFormState
@@ -22,7 +23,7 @@ function App() {
   )
 
   const { defaultMessage, microCMSPostData } = useMicroCMSIframe<FormState>({
-    height: 410,
+    height: 510,
   })
 
   const { error: zipError, handler, loading } = useZipcloud()
@@ -35,21 +36,24 @@ function App() {
 
   /** 郵便番号から住所を検索する */
   const searchAddressByZip = async () => {
-    const zpicode = formState.zip.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2')
-    const { data: zips } = await handler(zpicode)
+    const postalCode = formState.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2')
+    const { data: zips } = await handler(postalCode)
     if (!zips) return
     formDispatch({
-      zip: zpicode,
-      address1: `${zips[0].address1}${zips[0].address2}${zips[0].address3}`,
+      postalCode,
+      addressLevel1: zips[0].address1,
+      addressLevel2: zips[0].address2,
+      streetAddress: zips[0].address3
     })
   }
 
   // 郵便番号・住所・建物名のいずれかが更新されたらmicroCMSに送る
   useEffect(() => {
     const values = [
-      formState.zip.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
-      formState.address1,
-      formState.address2,
+      formState.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
+      formState.addressLevel1,
+      formState.addressLevel2,
+      formState.streetAddress,
     ]
     microCMSPostData({
       description: values.join(' '),
@@ -59,53 +63,60 @@ function App() {
 
   return (
     <>
-      <form>
-        <label htmlFor="zip">
+      <form autoComplete="off">
+        <label htmlFor="postal-code">
           郵便番号
           <br />
           <span className="example">1640001</span>
         </label>
 
         <input
-          id="zip"
           type="text"
-          required
-          autoComplete="off"
-          value={formState.zip}
-          onChange={(e) => formDispatch({ zip: e.target.value })}
+          id="postal-code"
+          name='postal-code'
+          value={formState.postalCode}
+          onChange={(e) => formDispatch({ postalCode: e.target.value })}
         />
         <p className="error">{zipError}</p>
         <button type="button" onClick={searchAddressByZip}>
           郵便番号で住所を検索
         </button>
 
-        <label htmlFor="address">
-          住所1
+        <label htmlFor="address-level1">
+          都道府県
           <br />
-          <span className="example">東京都中野区中野5-65-5</span>
+          <span className="example">東京都</span>
         </label>
         <input
-          id="address"
           type="text"
-          className="w-full"
-          required
-          autoComplete="off"
-          value={formState.address1}
-          onChange={(e) => formDispatch({ address1: e.target.value })}
+          id="address-level1"
+          value={formState.addressLevel1}
+          onChange={(e) => formDispatch({ addressLevel1: e.target.value })}
         />
 
-        <label htmlFor="building">
-          住所2
+        <label htmlFor="address-level2">
+          市区町村
           <br />
-          <span className="example">豊島興業ビル7F</span>
+          <span className="example">中野区</span>
         </label>
         <input
-          id="building"
           type="text"
+          id="address-level2"
+          value={formState.addressLevel2}
+          onChange={(e) => formDispatch({ addressLevel2: e.target.value })}
+        />
+
+        <label htmlFor="street-address">
+          町名以下
+          <br />
+          <span className="example">中野5-65-5 豊島興業ビル7F</span>
+        </label>
+        <input
+          type="text"
+          id="street-address"
           className="w-full"
-          autoComplete="off"
-          value={formState.address2}
-          onChange={(e) => formDispatch({ address2: e.target.value })}
+          value={formState.streetAddress}
+          onChange={(e) => formDispatch({ streetAddress: e.target.value })}
         />
       </form>
       {loading && <Loading />}
