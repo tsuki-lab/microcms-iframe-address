@@ -1,17 +1,14 @@
-import { Reducer, useEffect, useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useMicroCMSIframe } from './hooks/use-microcms-iframe'
 import { useZipcloud } from './hooks/use-zipcloud'
+import { FormReducer, FormState } from './types'
 
-const initFormState = {
-  postalCode: '', // 郵便番号
-  addressLevel1: '', // 都道府県
-  addressLevel2: '', // 市区町村
-  streetAddress: '', // 町名以下
+const initFormState: FormState = {
+  postalCode: '',
+  addressLevel1: '',
+  addressLevel2: '',
+  streetAddress: '',
 }
-
-type FormState = typeof initFormState
-
-type FormReducer = Reducer<FormState, Partial<FormState>>
 
 export const useApp = () => {
   const [formState, formDispatch] = useReducer<FormReducer>(
