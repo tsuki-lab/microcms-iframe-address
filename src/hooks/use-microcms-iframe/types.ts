@@ -23,22 +23,7 @@ export type MicroCMSIframePostState<T> =
   | PostDataSuccessMessage<T>
   | PostDataFailureMessage
 
-export type UpdateStyleMessage = {
-  id: string
-  action: 'MICROCMS_UPDATE_STYLE'
-  message: {
-    height: number | string
-    width: number | string
-  }
-}
-
-export type PostDataMessage<T> = {
-  id: string
-  action: 'MICROCMS_POST_DATA'
-  message: Partial<Message<T>>
-}
-
-export type ParsedMessageEvent<T> = Omit<MessageEvent, 'data'> & {
+export type ParsedMessageEventData<T> = Omit<MessageEvent, 'data'> & {
   data: T
 }
 
@@ -65,6 +50,21 @@ export type PostDataFailureMessage = {
 }
 
 export type MicroCMSMessageEvent<T> =
-  | ParsedMessageEvent<GetDefaultDataMessage<T>>
-  | ParsedMessageEvent<PostDataSuccessMessage<T>>
-  | ParsedMessageEvent<PostDataFailureMessage>
+  | ParsedMessageEventData<GetDefaultDataMessage<T>>
+  | ParsedMessageEventData<PostDataSuccessMessage<T>>
+  | ParsedMessageEventData<PostDataFailureMessage>
+
+export type UpdateStyleMessage = {
+  id: string
+  action: 'MICROCMS_UPDATE_STYLE'
+  message: {
+    height: number | string
+    width: number | string
+  }
+}
+
+export type PostDataMessage<T> = {
+  id: string
+  action: 'MICROCMS_POST_DATA'
+  message: Partial<Message<T>>
+}

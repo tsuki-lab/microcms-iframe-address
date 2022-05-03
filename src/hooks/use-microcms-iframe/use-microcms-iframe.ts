@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Message,
-  MicroCMSIframeState,
   MicroCMSIframeOptions,
+  MicroCMSIframePostState,
+  MicroCMSIframeState,
+  MicroCMSMessageEvent,
   PostDataMessage,
   UpdateStyleMessage,
-  MicroCMSMessageEvent,
-  MicroCMSIframePostState,
 } from './types'
 
 const defaultStyles = {
