@@ -16,16 +16,12 @@ export type Message<T> = {
 export type MicroCMSIframeState<T> = {
   iframeId: string
   origin: string
-  defaultMessage: Partial<Message<T>>
+  message: Partial<Message<T>>
 }
 
-export type GetDefaultDataMessageEvent<T> = Omit<MessageEvent, 'data'> & {
-  data: {
-    id: string
-    action: 'MICROCMS_GET_DEFAULT_DATA'
-    message?: Partial<Message<T>>
-  }
-}
+export type MicroCMSIframePostState<T> =
+  | PostDataSuccessMessage<T>
+  | PostDataFailureMessage
 
 export type UpdateStyleMessage = {
   id: string
@@ -41,3 +37,34 @@ export type PostDataMessage<T> = {
   action: 'MICROCMS_POST_DATA'
   message: Partial<Message<T>>
 }
+
+export type ParsedMessageEvent<T> = Omit<MessageEvent, 'data'> & {
+  data: T
+}
+
+export type GetDefaultDataMessage<T> = {
+  id: string
+  action: 'MICROCMS_GET_DEFAULT_DATA'
+  message?: Partial<Message<T>>
+  // NOTE: Release to 2022/5/10
+  // user: {
+  //   email: string
+  // }
+}
+
+export type PostDataSuccessMessage<T> = {
+  id: string
+  action: 'MICROCMS_POST_DATA_SUCCESS'
+  message: Partial<Message<T>>
+}
+
+export type PostDataFailureMessage = {
+  id: string
+  action: 'MICROCMS_POST_DATA_FAILURE'
+  error: string
+}
+
+export type MicroCMSMessageEvent<T> =
+  | ParsedMessageEvent<GetDefaultDataMessage<T>>
+  | ParsedMessageEvent<PostDataSuccessMessage<T>>
+  | ParsedMessageEvent<PostDataFailureMessage>
