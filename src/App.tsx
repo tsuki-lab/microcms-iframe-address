@@ -9,7 +9,7 @@ const initFormState = {
   postalCode: '', // 郵便番号
   addressLevel1: '', // 都道府県
   addressLevel2: '', // 市区町村
-  streetAddress: '' // 町名以下
+  streetAddress: '', // 町名以下
 }
 
 type FormState = typeof initFormState
@@ -22,7 +22,7 @@ function App() {
     initFormState
   )
 
-  const { defaultMessage, microCMSPostData } = useMicroCMSIframe<FormState>({
+  const [message, postHandler] = useMicroCMSIframe<FormState>({
     height: 510,
   })
 
@@ -30,20 +30,23 @@ function App() {
 
   // microCMSに登録されている情報をStateに詰める
   useEffect(() => {
-    if (!defaultMessage?.data) return
-    formDispatch(defaultMessage.data)
-  }, [defaultMessage])
+    if (!message?.data) return
+    formDispatch(message.data)
+  }, [message])
 
   /** 郵便番号から住所を検索する */
   const searchAddressByZip = async () => {
-    const postalCode = formState.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2')
+    const postalCode = formState.postalCode.replace(
+      /^([0-9]{3})-?([0-9]{4})$/,
+      '$1$2'
+    )
     const { data: zips } = await handler(postalCode)
     if (!zips) return
     formDispatch({
       postalCode,
       addressLevel1: zips[0].address1,
       addressLevel2: zips[0].address2,
-      streetAddress: zips[0].address3
+      streetAddress: zips[0].address3,
     })
   }
 
@@ -55,11 +58,11 @@ function App() {
       formState.addressLevel2,
       formState.streetAddress,
     ]
-    microCMSPostData({
-      description: values.join(' '),
+    postHandler({
+      description: values.filter(Boolean).join(' '),
       data: formState,
     })
-  }, [formState, microCMSPostData])
+  }, [formState, postHandler])
 
   return (
     <>
@@ -73,7 +76,7 @@ function App() {
         <input
           type="text"
           id="postal-code"
-          name='postal-code'
+          name="postal-code"
           value={formState.postalCode}
           onChange={(e) => formDispatch({ postalCode: e.target.value })}
         />

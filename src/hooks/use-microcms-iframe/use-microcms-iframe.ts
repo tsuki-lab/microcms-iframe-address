@@ -1,49 +1,66 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
+  Message,
   MicroCMSIframeState,
-  MicroCMSPostParams,
-  MicroCMSUpdateStyleParams,
+  MicroCMSIframeOptions,
+  PostDataMessage,
+  UpdateStyleMessage,
+  GetDefaultDataMessageEvent,
 } from './types'
 
+const defaultStyles = {
+  height: 300,
+  width: '100%',
+}
+
+const defaultMessage = {
+  id: '',
+  title: '',
+  description: '',
+  imageUrl: '',
+  updatedAt: '',
+  data: null,
+}
+
 export const useMicroCMSIframe = <T>(
-  styleParams?: Partial<MicroCMSUpdateStyleParams>
-) => {
+  options?: Partial<MicroCMSIframeOptions>
+): [
+  message: Partial<Message<T>>,
+  postHandler: (payload: Partial<Message<T>>) => void
+] => {
   const mounted = useRef(false)
   const [state, setState] = useState<MicroCMSIframeState<T>>({
     iframeId: '',
-    serviceUrl: '',
-    defaultMessage: {
-      id: '',
-      title: '',
-      description: '',
-      imageUrl: '',
-      updatedAt: '',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: {} as any,
-    },
+    origin: '',
+    defaultMessage,
   })
 
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true
-      window.addEventListener('message', (e) => {
+      window.addEventListener('message', (e: GetDefaultDataMessageEvent<T>) => {
         if (
           e.isTrusted === true &&
           e.data.action === 'MICROCMS_GET_DEFAULT_DATA'
         ) {
           setState({
             iframeId: e.data.id,
-            serviceUrl: e.origin,
-            defaultMessage: e.data.message,
+            origin: e.origin,
+            defaultMessage: e.data.message || defaultMessage,
           })
 
+          const updateStyleMessage: UpdateStyleMessage = {
+            id: e.data.id,
+            action: 'MICROCMS_UPDATE_STYLE',
+            message: Object.assign(defaultStyles, {
+              height: options?.height,
+              width: options?.width,
+            }),
+          }
+
           window.parent.postMessage(
-            {
-              id: e.data.id,
-              action: 'MICROCMS_UPDATE_STYLE',
-              message: styleParams,
-            },
-            e.origin
+            updateStyleMessage,
+            options?.origin || e.origin
           )
         }
       })
@@ -51,24 +68,20 @@ export const useMicroCMSIframe = <T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const microCMSPostData = useCallback(
-    (payload: Partial<MicroCMSPostParams<T>>) => {
-      if (state.iframeId && state.serviceUrl) {
-        window.parent.postMessage(
-          {
-            id: state.iframeId,
-            action: 'MICROCMS_POST_DATA',
-            message: payload,
-          },
-          state.serviceUrl
-        )
+  const postHandler = useCallback(
+    (message: Partial<Message<T>>) => {
+      if (state.iframeId && state.origin) {
+        const postDataMessage: PostDataMessage<T> = {
+          id: state.iframeId,
+          action: 'MICROCMS_POST_DATA',
+          message: message,
+        }
+
+        window.parent.postMessage(postDataMessage, state.origin)
       }
     },
     [state]
   )
 
-  return {
-    defaultMessage: state.defaultMessage,
-    microCMSPostData,
-  }
+  return [state.defaultMessage, postHandler]
 }
