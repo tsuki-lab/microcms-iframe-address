@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react'
-import { useMicroCMSIframe } from './hooks/use-microcms-iframe'
+import { useMicroCMSIframe } from 'use-microcms-iframe'
 import { useZipcloud } from './hooks/use-zipcloud'
 import { FormReducer, FormState } from './types'
 
