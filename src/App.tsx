@@ -1,7 +1,7 @@
 import { Reducer, useEffect, useReducer } from 'react'
 import { Loading } from './components/Loading'
 import { useMicroCMSIframe } from './hooks/use-microcms-iframe'
-import { useZipcloud } from './hooks/use-zipcloud/use-zipcloud'
+import { useZipcloud } from './hooks/use-zipcloud'
 
 import './app.css'
 
