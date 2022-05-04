@@ -1,7 +1,7 @@
 {
   "name": "microcms-iframe-address",
   "private": true,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "scripts": {
     "dev": "vite",
     "build": "pnpm type-check && vite build",
@@ -14,7 +14,7 @@
     "mvp.css": "^1.8.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "use-microcms-iframe": "^0.1.2"
+    "use-microcms-iframe": "^0.1.18"
   },
   "devDependencies": {
     "@types/react": "^18.0.8",

@@ -18,14 +18,14 @@ specifiers:
   react: ^18.1.0
   react-dom: ^18.1.0
   typescript: ^4.6.4
-  use-microcms-iframe: ^0.1.2
+  use-microcms-iframe: ^0.1.18
   vite: ^2.9.7
 
 dependencies:
   mvp.css: 1.8.0
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
-  use-microcms-iframe: 0.1.2
+  use-microcms-iframe: 0.1.18
 
 devDependencies:
   '@types/react': 18.0.8
@@ -2232,8 +2232,10 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /use-microcms-iframe/0.1.2:
-    resolution: {integrity: sha512-daA2M7YUx4zl2QPNXNNmgi+o4M3K7+a6uv9IWjzwDoKg3fCPRK7a+X+I99L34JIGv1ZCGNdjJ9GO4LcOq54+rw==}
+  /use-microcms-iframe/0.1.18:
+    resolution: {integrity: sha512-u2wtiJSK3ZKoEFcWCvylirC2aNqT8wzozT8GTZQVLM7Pf76Ju6wVeJFthCAOGqez9gpSo/YqOFduAdpRELUvjQ==}
+    dependencies:
+      react: 18.1.0
     dev: false
 
   /v8-compile-cache/2.3.0:
