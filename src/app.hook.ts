@@ -1,7 +1,6 @@
-import { useEffect, useReducer } from 'react'
 import { useMicroCMSIframe } from 'use-microcms-iframe'
 import { useZipcloud } from './hooks/use-zipcloud'
-import { FormReducer, FormState } from './types'
+import { FormState } from './types'
 
 const initFormState: FormState = {
   postalCode: '',
@@ -11,32 +10,31 @@ const initFormState: FormState = {
 }
 
 export const useApp = () => {
-  const [formState, formDispatch] = useReducer<FormReducer>(
-    (prev, action) => ({ ...prev, ...action }),
-    initFormState
-  )
-
-  const [message, postHandler] = useMicroCMSIframe<FormState>({
+  const [state, setState] = useMicroCMSIframe(initFormState, {
     height: 510,
+    parsePostMessageParams: (data) => {
+      const values = [
+        data?.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
+        data?.addressLevel1,
+        data?.addressLevel2,
+        data?.streetAddress,
+      ]
+      return {
+        description: values.filter(Boolean).join(' '),
+        data: data,
+      }
+    },
   })
 
   const { error: zipError, handler, loading } = useZipcloud()
 
-  // microCMSに登録されている情報をStateに詰める
-  useEffect(() => {
-    if (!message?.data) return
-    formDispatch(message.data)
-  }, [message])
-
   /** 郵便番号から住所を検索する */
   const searchAddressByZip = async () => {
-    const postalCode = formState.postalCode.replace(
-      /^([0-9]{3})-?([0-9]{4})$/,
-      '$1$2'
-    )
+    const postalCode =
+      state?.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2') || ''
     const { data: zips } = await handler(postalCode)
     if (!zips) return
-    formDispatch({
+    setState({
       postalCode,
       addressLevel1: zips[0].address1,
       addressLevel2: zips[0].address2,
@@ -44,23 +42,9 @@ export const useApp = () => {
     })
   }
 
-  // 郵便番号・住所・建物名のいずれかが更新されたらmicroCMSに送る
-  useEffect(() => {
-    const values = [
-      formState.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
-      formState.addressLevel1,
-      formState.addressLevel2,
-      formState.streetAddress,
-    ]
-    postHandler({
-      description: values.filter(Boolean).join(' '),
-      data: formState,
-    })
-  }, [formState, postHandler])
-
   return {
-    formState,
-    formDispatch,
+    state,
+    setState,
     zipError,
     searchAddressByZip,
     loading,
