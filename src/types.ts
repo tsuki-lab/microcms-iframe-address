@@ -1,5 +1,3 @@
-import { Reducer } from 'react'
-
 export type FormState = {
   /** 郵便番号 */
   postalCode: string
@@ -10,5 +8,3 @@ export type FormState = {
   /** 町名以下 */
   streetAddress: string
 }
-
-export type FormReducer = Reducer<FormState, Partial<FormState>>

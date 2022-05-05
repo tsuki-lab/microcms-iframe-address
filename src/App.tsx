@@ -4,8 +4,7 @@ import { Loading } from './components/Loading'
 import './app.css'
 
 function App() {
-  const { formState, formDispatch, zipError, searchAddressByZip, loading } =
-    useApp()
+  const { state, setState, zipError, searchAddressByZip, loading } = useApp()
 
   return (
     <>
@@ -20,8 +19,10 @@ function App() {
           type="text"
           id="postal-code"
           name="postal-code"
-          value={formState.postalCode}
-          onChange={(e) => formDispatch({ postalCode: e.target.value })}
+          value={state?.postalCode}
+          onChange={(e) =>
+            setState((prev) => prev && { ...prev, postalCode: e.target.value })
+          }
         />
         <p className="error">{zipError}</p>
         <button type="button" onClick={searchAddressByZip}>
@@ -36,8 +37,12 @@ function App() {
         <input
           type="text"
           id="address-level1"
-          value={formState.addressLevel1}
-          onChange={(e) => formDispatch({ addressLevel1: e.target.value })}
+          value={state?.addressLevel1}
+          onChange={(e) =>
+            setState(
+              (prev) => prev && { ...prev, addressLevel1: e.target.value }
+            )
+          }
         />
 
         <label htmlFor="address-level2">
@@ -48,8 +53,12 @@ function App() {
         <input
           type="text"
           id="address-level2"
-          value={formState.addressLevel2}
-          onChange={(e) => formDispatch({ addressLevel2: e.target.value })}
+          value={state?.addressLevel2}
+          onChange={(e) =>
+            setState(
+              (prev) => prev && { ...prev, addressLevel2: e.target.value }
+            )
+          }
         />
 
         <label htmlFor="street-address">
@@ -61,8 +70,12 @@ function App() {
           type="text"
           id="street-address"
           className="w-full"
-          value={formState.streetAddress}
-          onChange={(e) => formDispatch({ streetAddress: e.target.value })}
+          value={state?.streetAddress}
+          onChange={(e) =>
+            setState(
+              (prev) => prev && { ...prev, streetAddress: e.target.value }
+            )
+          }
         />
       </form>
       {loading && <Loading />}
