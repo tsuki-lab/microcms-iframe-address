@@ -3,7 +3,7 @@ import { Loading } from './components/Loading'
 
 import './app.css'
 
-function App() {
+export const App: React.FC = () => {
   const { state, setState, zipError, searchAddressByZip, loading } = useApp()
 
   return (
@@ -82,5 +82,3 @@ function App() {
     </>
   )
 }
-
-export default App
