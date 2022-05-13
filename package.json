@@ -6,9 +6,11 @@
     "dev": "vite",
     "build": "pnpm type-check && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .ts,.tsx",
-    "fix": "pnpm lint -- --fix",
-    "type-check": "tsc"
+    "lint": "eslint . --ext .ts,.js",
+    "format": "prettier --config .prettierrc.json --write './**/*.{ts,js,md}'",
+    "fix": "pnpm format && pnpm lint --fix",
+    "type-check": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "mvp.css": "^1.8.0",
@@ -26,7 +28,6 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.6.2",
@@ -43,7 +44,8 @@
     "url": "https://github.com/tsuki-lab/microcms-iframe-address/issues"
   },
   "keywords": [
-    "microcms"
+    "microcms",
+    "react"
   ],
   "homepage": "https://github.com/tsuki-lab/microcms-iframe-address#readme"
 }
