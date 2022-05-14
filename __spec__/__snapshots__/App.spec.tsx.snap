@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`testing App.tsx > snapshot testing 1`] = `
+exports[`Test App.tsx > スナップショットテスト 1`] = `
 <DocumentFragment>
   <form
     autocomplete="off"
