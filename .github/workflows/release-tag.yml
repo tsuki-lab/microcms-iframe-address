@@ -11,7 +11,27 @@ jobs:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch origin ${{ github.event.pull_request.head.ref }}
-      - run: git checkout ${{ github.event.pull_request.head.ref }}
-      - run: git tag `echo '${{ github.event.pull_request.head.ref }}' | sed 's/release\///'`
-      - run: git push origin `echo '${{ github.event.pull_request.head.ref }}' | sed 's/release\///'`
+      - name: Create Tag
+        id: create-tag
+        run: |
+          git fetch origin main
+          git checkout main
+          echo '${{ github.event.pull_request.head.ref }}' | sed 's/release\///' > TAG_NAME
+          git tag $(cat TAG_NAME)
+          git push origin $(cat TAG_NAME)
+          echo "::set-output name=tag-name::$(cat TAG_NAME)"
+
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create-tag.outputs.tag-name }}
+          release_name: Release ${{ steps.create-tag.outputs.tag-name }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
