@@ -9,7 +9,15 @@ const initFormState: FormState = {
   streetAddress: '',
 }
 
-export const useApp = () => {
+export type UseAppResult = {
+  state: FormState | null
+  setState: React.Dispatch<React.SetStateAction<FormState | null>>
+  zipError: string | undefined
+  searchAddressByZip: () => Promise<void>
+  loading: boolean
+}
+
+export const useApp = (): UseAppResult => {
   const [state, setState] = useMicroCMSIframe(initFormState, {
     height: 510,
     parsePostMessageParams: (data) => {
