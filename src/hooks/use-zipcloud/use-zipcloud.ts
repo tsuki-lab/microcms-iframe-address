@@ -57,7 +57,7 @@ export const useZipcloud = () => {
     if (!body.results) {
       const errRes = {
         data: undefined,
-        error: '誤った郵便番号が入力されています',
+        error: '誤った郵便番号が入力されています。',
         status: body.status,
       }
       reducer(errRes)
