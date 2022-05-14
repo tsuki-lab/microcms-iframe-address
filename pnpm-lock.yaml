@@ -24,7 +24,7 @@ specifiers:
   react: ^18.1.0
   react-dom: ^18.1.0
   typescript: ^4.6.4
-  use-microcms-iframe: ^0.2.1
+  use-microcms-iframe: ^0.4.0
   vi-fetch: ^0.7.0
   vite: ^2.9.7
   vitest: ^0.12.6
@@ -33,7 +33,7 @@ dependencies:
   mvp.css: 1.8.0
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
-  use-microcms-iframe: 0.2.1
+  use-microcms-iframe: 0.4.0
 
 devDependencies:
   '@testing-library/jest-dom': 5.16.4
@@ -2811,8 +2811,8 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /use-microcms-iframe/0.2.1:
-    resolution: {integrity: sha512-i4oH6B94aGO+0PyQxb9bGOj3pxAC7qvVXKUnxQagrQmP/7CdApeqkM5vBUVKLKeZEdYKgoVUNpzfPLqvSzQQ9g==}
+  /use-microcms-iframe/0.4.0:
+    resolution: {integrity: sha512-lDilxcyoCh0imW1kt06T8LaABPiZZ1HzzuasZy8d2hCqulQCM3pw/ZkR715Wzuyd+kN2iRiKtdgxx0gqa8t0WQ==}
     dependencies:
       react: 18.1.0
     dev: false

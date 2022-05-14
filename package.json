@@ -17,7 +17,7 @@
     "mvp.css": "^1.8.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "use-microcms-iframe": "^0.2.1"
+    "use-microcms-iframe": "^0.4.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",

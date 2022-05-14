@@ -1,4 +1,4 @@
-import { useMicroCMSIframe } from 'use-microcms-iframe'
+import { useStateMicroCMSIframe } from 'use-microcms-iframe'
 import { useZipcloud } from './hooks/use-zipcloud'
 import { FormState } from './types'
 
@@ -11,14 +11,14 @@ const initFormState: FormState = {
 
 export type UseAppResult = {
   state: FormState | null
-  setState: React.Dispatch<React.SetStateAction<FormState | null>>
+  setState: React.Dispatch<React.SetStateAction<FormState>>
   zipError: string | undefined
   searchAddressByZip: () => Promise<void>
   loading: boolean
 }
 
 export const useApp = (): UseAppResult => {
-  const [state, setState] = useMicroCMSIframe(initFormState, {
+  const [state, setState] = useStateMicroCMSIframe(initFormState, {
     height: 510,
     parsePostMessageParams: (data) => {
       const values = [
