@@ -1,12 +1,12 @@
-name: deploy-vite-app
+name: pre-pull-request
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,12 +25,3 @@ jobs:
 
       - name: Run test
         run: pnpm test
-
-      - name: Build Vite App
-        run: pnpm build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist

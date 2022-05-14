@@ -8,20 +8,21 @@ DEMO: [https://tsuki-lab.github.io/microcms-iframe-address/](https://tsuki-lab.g
 # 機能仕様
 
 - **住所検索機能**<br />
-[zipcloud｜郵便番号検索API](http://zipcloud.ibsnet.co.jp/) を用いて入力された郵便番号を元に住所を検索・自動入力します。
+  [zipcloud ｜郵便番号検索 API](http://zipcloud.ibsnet.co.jp/) を用いて入力された郵便番号を元に住所を検索・自動入力します。
 
 - **入力値のフィードバック**<br />
-インラインフレームフィールドから入力フィールドに入力した値は、常にmicroCMSにフィードバックされます。<br />
-入力した内容はmicroCMS管理画面にて「下書き保存」または、「公開」を押下することでコンテンツとして保存されます。
+  インラインフレームフィールドから入力フィールドに入力した値は、常に microCMS にフィードバックされます。<br />
+  入力した内容は microCMS 管理画面にて「下書き保存」または、「公開」を押下することでコンテンツとして保存されます。
 
 ## レスポンス
+
 ```json
-  {
-    "postalCode": "郵便番号",
-    "addressLevel1": "都道府県",
-    "addressLevel2": "市区町村",
-    "streetAddress": "町名以下"
-  }
+{
+  "postalCode": "郵便番号",
+  "addressLevel1": "都道府県",
+  "addressLevel2": "市区町村",
+  "streetAddress": "町名以下"
+}
 ```
 
 # 設定方法
@@ -47,4 +48,4 @@ API の設定を保存することで利用可能になります。
 
 # 問い合わせ先
 
-[@hanetsuki_dev｜Twitter](https://twitter.com/hanetsuki_dev)
+[@hanetsuki_dev ｜ Twitter](https://twitter.com/hanetsuki_dev)

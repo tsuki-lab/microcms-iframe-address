@@ -1,0 +1,84 @@
+// Vitest Snapshot v1
+
+exports[`testing App.tsx > snapshot testing 1`] = `
+<DocumentFragment>
+  <form
+    autocomplete="off"
+  >
+    <label
+      for="postal-code"
+    >
+      郵便番号
+      <br />
+      <span
+        class="example"
+      >
+        1640001
+      </span>
+    </label>
+    <input
+      defaultvalue=""
+      id="postal-code"
+      name="postal-code"
+      type="text"
+    />
+    <p
+      class="error"
+    />
+    <button
+      type="button"
+    >
+      郵便番号で住所を検索
+    </button>
+    <label
+      for="address-level1"
+    >
+      都道府県
+      <br />
+      <span
+        class="example"
+      >
+        東京都
+      </span>
+    </label>
+    <input
+      defaultvalue=""
+      id="address-level1"
+      type="text"
+    />
+    <label
+      for="address-level2"
+    >
+      市区町村
+      <br />
+      <span
+        class="example"
+      >
+        中野区
+      </span>
+    </label>
+    <input
+      defaultvalue=""
+      id="address-level2"
+      type="text"
+    />
+    <label
+      for="street-address"
+    >
+      町名以下
+      <br />
+      <span
+        class="example"
+      >
+        中野5-65-5 豊島興業ビル7F
+      </span>
+    </label>
+    <input
+      class="w-full"
+      defaultvalue=""
+      id="street-address"
+      type="text"
+    />
+  </form>
+</DocumentFragment>
+`;
