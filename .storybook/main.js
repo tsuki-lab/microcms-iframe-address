@@ -20,6 +20,6 @@ module.exports = {
         ...config.esbuild,
         jsxInject: `import React from 'react'`,
       },
-    }
+    };
   },
-}
+};

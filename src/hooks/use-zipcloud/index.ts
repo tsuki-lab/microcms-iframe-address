@@ -1,2 +1,2 @@
-export * from './use-zipcloud'
-export * from './types'
+export * from './use-zipcloud';
+export * from './types';

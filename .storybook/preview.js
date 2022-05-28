@@ -1,9 +1,9 @@
-import 'mvp.css'
-import '../src/global.css'
-import '../src/utility.css'
-import '../src/app.css'
-import * as jest from 'jest-mock'
-window.jest = jest
+import 'mvp.css';
+import '../src/global.css';
+import '../src/utility.css';
+import '../src/app.css';
+import * as jest from 'jest-mock';
+window.jest = jest;
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,4 +13,4 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};

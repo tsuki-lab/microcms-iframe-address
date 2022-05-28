@@ -8,7 +8,6 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:storybook/recommended",
     "google",
     "prettier"
   ],
@@ -24,10 +23,27 @@
     "@typescript-eslint",
     "react",
     "react-hooks",
-    "import",
-    "storybook"
+    "import"
   ],
   "rules": {
+    "semi": [
+      "error",
+      "always"
+    ],
+    "semi-spacing": [
+      "error",
+      {
+        "after": true,
+        "before": false
+      }
+    ],
+    "semi-style": [
+      "error",
+      "last"
+    ],
+    "no-extra-semi": "error",
+    "no-unexpected-multiline": "error",
+    "no-unreachable": "error",
     "react/react-in-jsx-scope": [
       "off"
     ],
