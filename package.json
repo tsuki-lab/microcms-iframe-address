@@ -69,5 +69,8 @@
     "microcms",
     "react"
   ],
-  "homepage": "https://github.com/tsuki-lab/microcms-iframe-address#readme"
+  "homepage": "https://github.com/tsuki-lab/microcms-iframe-address#readme",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
