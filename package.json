@@ -6,12 +6,14 @@
     "dev": "vite",
     "build": "pnpm type-check && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .ts,.js",
-    "format": "prettier --config .prettierrc.json --write './**/*.{ts,js,md}'",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --config .prettierrc.json --write './**/*.{ts,tsx,js,jsx,md}'",
     "fix": "pnpm format && pnpm lint --fix",
     "test": "vitest run",
     "type-check": "tsc",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "mvp.css": "^1.8.0",
@@ -20,6 +22,15 @@
     "use-microcms-iframe": "^0.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@storybook/addon-actions": "^6.5.5",
+    "@storybook/addon-essentials": "^6.5.5",
+    "@storybook/addon-interactions": "^6.5.5",
+    "@storybook/addon-links": "^6.5.5",
+    "@storybook/builder-vite": "^0.1.35",
+    "@storybook/jest": "^0.0.10",
+    "@storybook/react": "^6.5.5",
+    "@storybook/testing-library": "0.0.11",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/react-hooks": "^8.0.0",
@@ -30,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "@vitejs/plugin-react": "^1.3.2",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.14.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
@@ -38,11 +50,11 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "happy-dom": "^3.2.0",
     "husky": "^8.0.0",
+    "msw": "^0.41.1",
+    "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.6.2",
     "typescript": "^4.6.4",
-    "vi-fetch": "^0.7.0",
-    "vite": "^2.9.7",
-    "vitest": "^0.12.6"
+    "vite": "^2.9.7"
   },
   "license": "MIT",
   "author": "hanetsuki <me@tsuki-lab.net>",
@@ -57,5 +69,8 @@
     "microcms",
     "react"
   ],
-  "homepage": "https://github.com/tsuki-lab/microcms-iframe-address#readme"
+  "homepage": "https://github.com/tsuki-lab/microcms-iframe-address#readme",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

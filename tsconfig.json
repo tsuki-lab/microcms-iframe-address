@@ -19,9 +19,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "vi-fetch/matchers"
-    ]
   },
   "include": [
     "src",
