@@ -28,7 +28,7 @@ ComplementAddress.storyName = 'SUCCESS_住所検索結果';
 ComplementAddress.play = async (ctx) => {
   await Initial.play?.(ctx);
   await userEvent.type(screen.getByLabelText('郵便番号'), '1640001', {
-    delay: 50,
+    delay: 70,
   });
   expect(screen.getByLabelText('郵便番号')).toHaveValue('1640001');
   await expectSearchAddress();
@@ -57,7 +57,7 @@ ErrorIncorrectPostalCodeValue.storyName = 'ERROR_誤った郵便番号';
 ErrorIncorrectPostalCodeValue.play = async (ctx) => {
   await Initial.play?.(ctx);
   await userEvent.type(screen.getByLabelText('郵便番号'), '0000000', {
-    delay: 50,
+    delay: 70,
   });
   expect(screen.getByLabelText('郵便番号')).toHaveValue('0000000');
   await expectSearchAddress();
@@ -71,7 +71,7 @@ ErrorPostalCodeValueLength.storyName = 'ERROR_誤った桁数の郵便番号';
 ErrorPostalCodeValueLength.play = async (ctx) => {
   await Initial.play?.(ctx);
   await userEvent.type(screen.getByLabelText('郵便番号'), '00000000000', {
-    delay: 50,
+    delay: 70,
   });
   expect(screen.getByLabelText('郵便番号')).toHaveValue('00000000000');
   await expectSearchAddress();
