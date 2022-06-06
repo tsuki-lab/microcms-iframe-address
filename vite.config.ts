@@ -1,5 +1,4 @@
 /* eslint-disable spaced-comment */
-/// <reference types="vitest" />
 /// <reference types="vite/client" />
 
 import react from '@vitejs/plugin-react';
@@ -9,8 +8,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   base: '/microcms-iframe-address/',
-  test: {
-    globals: true,
-    environment: 'happy-dom',
+  esbuild: {
+    jsxInject: `import React from 'react'`,
   },
 });
