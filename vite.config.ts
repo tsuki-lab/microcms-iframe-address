@@ -8,7 +8,4 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   base: '/microcms-iframe-address/',
-  esbuild: {
-    jsxInject: `import React from 'react'`,
-  },
 });
