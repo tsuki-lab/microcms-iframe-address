@@ -50,7 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "happy-dom": "^3.2.0",
     "husky": "^8.0.0",
     "jest": "27.5.1",
