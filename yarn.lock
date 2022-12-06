@@ -12644,10 +12644,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-microcms-iframe@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/use-microcms-iframe/-/use-microcms-iframe-0.4.1.tgz#c1ea0e9d9b89184f94cb46f8d313b62cea5ef067"
-  integrity sha512-M7RHUHJJxuqqw5AsYLkmjW77oFTtpEUMe5IdmP6taDV3FFq5H44z9LChPrTfH/xMrJ+K2caJBS3DD6afwlBGUw==
+use-microcms-iframe@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/use-microcms-iframe/-/use-microcms-iframe-0.4.3.tgz#af955a3f28b1834a8d5c8d2d1424036e3e9144cb"
+  integrity sha512-HYx53gl9V+88UNUWK9wrdeClbj6nXkcKCvG/00dzhsEM40mw/ESux+45xrVFEl7v3yKfayiJ1rjiOTl+xCh1sg==
   dependencies:
     react "^18.1.0"
 
