@@ -1,42 +1,45 @@
 import './app.css';
-import { useStateMicroCMSIframe } from 'use-microcms-iframe';
+import { useMicroCMSExtension } from 'react-microcms-extension';
 import { Loading } from './components/Loading';
 import { useZipcloud } from './hooks/use-zipcloud';
 import { FormState } from './types';
 
-const initFormState: FormState = {
-  postalCode: '',
-  addressLevel1: '',
-  addressLevel2: '',
-  streetAddress: '',
-};
+
 
 export const App: React.FC = () => {
-  const [state, setState] = useStateMicroCMSIframe(initFormState, {
-    height: 510,
-    parsePostMessageParams: (data) => {
-      const values = [
-        data?.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
-        data?.addressLevel1,
-        data?.addressLevel2,
-        data?.streetAddress,
-      ];
-      return {
-        description: values.filter(Boolean).join(' '),
-        data: data,
-      };
-    },
+  const { state, post: _post } = useMicroCMSExtension<FormState>({
+    height: 510
   });
 
   const { error: zipError, handler, loading } = useZipcloud();
 
+  const post = (data: Partial<FormState>) => {
+    const values = [
+      data?.postalCode?.replace(/^([0-9]{3})-?([0-9]{4})$/, '〒$1-$2'),
+      data?.addressLevel1,
+      data?.addressLevel2,
+      data?.streetAddress,
+    ];
+
+    _post({
+      description: values.filter(Boolean).join(' '),
+      data: {
+        postalCode: data?.postalCode,
+        addressLevel1: data?.addressLevel1,
+        addressLevel2: data?.addressLevel2,
+        streetAddress: data?.streetAddress,
+      },
+    });
+  };
+
   /** 郵便番号から住所を検索する */
   const searchAddressByZip = async () => {
     const postalCode =
-      state?.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2') || '';
+      state?.message?.data?.postalCode.replace(/^([0-9]{3})-?([0-9]{4})$/, '$1$2') || '';
     const { data: zips } = await handler(postalCode);
     if (!zips) return;
-    setState({
+
+    post({
       postalCode,
       addressLevel1: zips[0].address1,
       addressLevel2: zips[0].address2,
@@ -54,9 +57,12 @@ export const App: React.FC = () => {
           type="text"
           id="postal-code"
           name="postal-code"
-          value={state?.postalCode}
+          value={state?.message?.data.postalCode}
           onChange={(e) =>
-            setState((prev) => prev && { ...prev, postalCode: e.target.value })
+            post({
+              ...state?.message?.data,
+              postalCode: e.target.value
+            })
           }
         />
         {zipError && (
@@ -73,11 +79,12 @@ export const App: React.FC = () => {
         <input
           type="text"
           id="address-level1"
-          value={state?.addressLevel1}
+          value={state?.message?.data.addressLevel1}
           onChange={(e) =>
-            setState(
-              (prev) => prev && { ...prev, addressLevel1: e.target.value }
-            )
+            post({
+              ...state?.message?.data,
+              addressLevel1: e.target.value
+            })
           }
         />
 
@@ -86,11 +93,12 @@ export const App: React.FC = () => {
         <input
           type="text"
           id="address-level2"
-          value={state?.addressLevel2}
+          value={state?.message?.data.addressLevel2}
           onChange={(e) =>
-            setState(
-              (prev) => prev && { ...prev, addressLevel2: e.target.value }
-            )
+            post({
+              ...state?.message?.data,
+              addressLevel2: e.target.value
+            })
           }
         />
 
@@ -100,11 +108,12 @@ export const App: React.FC = () => {
           type="text"
           id="street-address"
           className="w-full"
-          value={state?.streetAddress}
+          value={state?.message?.data.streetAddress}
           onChange={(e) =>
-            setState(
-              (prev) => prev && { ...prev, streetAddress: e.target.value }
-            )
+            post({
+              ...state?.message?.data,
+              streetAddress: e.target.value
+            })
           }
         />
       </form>

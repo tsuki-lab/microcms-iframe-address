@@ -9289,6 +9289,11 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==
 
+microcms-field-extension-react@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/microcms-field-extension-react/-/microcms-field-extension-react-1.0.0.tgz#ed45d240fdf4fbc2d1d0f7dd6d71dd0b40863218"
+  integrity sha512-4ZAqqt71cfYDMzK4LkGlSQ1XFurrjY0a2eJ+RHS9Y4TIqkDEOJelyB5E2HwLRsmkRjQz9+XA8gMAGqpU6jFZCw==
+
 microevent.ts@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/microevent.ts/-/microevent.ts-0.1.1.tgz#70b09b83f43df5172d0205a63025bce0f7357fa0"
@@ -10830,6 +10835,13 @@ react-merge-refs@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
+
+react-microcms-extension@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-microcms-extension/-/react-microcms-extension-1.0.0.tgz#220082761d681a76ebd6cab69a44d0044ba61a42"
+  integrity sha512-MQ8ynz/kuI7pLAziD6qgCvQCHirE5IurD1nlAl+gsKex7CxJqkSnPUIc/evHXaUj16T/pEoCudFTuzf3MDEvkQ==
+  dependencies:
+    react "^18.1.0"
 
 react-refresh@^0.11.0:
   version "0.11.0"
